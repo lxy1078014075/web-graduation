@@ -3,6 +3,10 @@ module web-graduation
 go 1.15
 
 require (
+	github.com/Chronokeeper/anyxml v0.0.0-20160530174208-54457d8e98c6 // indirect
+	github.com/CloudyKit/jet v2.1.2+incompatible // indirect
+	github.com/agrison/go-tablib v0.0.0-20160310143025-4930582c22ee // indirect
+	github.com/bndr/gotabulate v1.1.2 // indirect
 	github.com/bwmarrin/snowflake v0.3.0
 	github.com/fsnotify/fsnotify v1.4.9
 	github.com/gin-gonic/gin v1.6.3
@@ -16,6 +20,10 @@ require (
 	github.com/onsi/ginkgo v1.14.2 // indirect
 	github.com/onsi/gomega v1.10.4 // indirect
 	github.com/spf13/viper v1.7.1
+	github.com/syndtr/goleveldb v1.0.0 // indirect
+	github.com/xormplus/builder v0.0.0-20200331055651-240ff40009be // indirect
+	github.com/xormplus/xorm v0.0.0-20210107091022-175d736afaae
 	go.uber.org/zap v1.10.0
+	gopkg.in/flosch/pongo2.v3 v3.0.0-20141028000813-5e81b817a0c4 // indirect
 	gopkg.in/natefinch/lumberjack.v2 v2.0.0 // indirect
 )

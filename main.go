@@ -46,14 +46,14 @@ func main() {
 		return
 	}
 	defer redis.Close()
-
+	// 4.初始化雪花算法
 	if err := snowflake.Init(viper.GetString("app.startTime"), viper.GetInt64("app.machineID")); err != nil {
 		fmt.Printf("init snowflake failed, err:%v\n", err)
 		return
 	}
-	// 5.注册路由
+	// 6.注册路由
 	r := router.Init()
-	// 6.启动服务(优雅关机)
+	// 7.启动服务(优雅关机)
 	srv := &http.Server{
 		Addr:    fmt.Sprintf(":%d", viper.GetInt("app.port")),
 		Handler: r,
