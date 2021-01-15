@@ -1,0 +1,26 @@
+app:
+    name: "web_graduation"
+    mode: "dev"
+    port: "8080"
+    startTime: "2021-01-15" # 雪花算法开始时间
+    machineID: 1  # 雪花算法记录工作的机器id
+log:
+  level: "debug"
+  filename: "web-graduation.log"
+  max_size: "200"
+  max_age: 30
+  max_backups: 7
+mysql:
+  host: "127.0.0.1"
+  port: 3306
+  dbname: "web_app"
+  user: "root"
+  password: "youruhe"
+  max_open_conn: 200
+  max_idle_conn: 10
+redis:
+  host: "127.0.0.1"
+  port: 6379
+  db: 0
+  password: "youruhe"
+  poll_size: 100
