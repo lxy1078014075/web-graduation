@@ -3,12 +3,13 @@ package mysql
 import (
 	"fmt"
 	_ "github.com/go-sql-driver/mysql"
-	"github.com/jmoiron/sqlx"
 	"github.com/spf13/viper"
+	"github.com/xormplus/xorm"
 	"go.uber.org/zap"
+	"web-graduation/models/sql"
 )
 
-var db *sqlx.DB
+var db *xorm.Engine
 
 // Init 初始化mysql数据库
 func Init() (err error) {
@@ -19,13 +20,20 @@ func Init() (err error) {
 		viper.GetInt("mysql.port"),
 		viper.GetString("mysql.dbname"),
 	)
-	db, err = sqlx.Connect("mysql", dsn)
+	db, err = xorm.NewEngine("mysql", dsn)
 	if err != nil {
 		zap.L().Error("connect mysql failed", zap.Error(err))
 		return err
 	}
 	db.SetMaxOpenConns(viper.GetInt("mysql.max_open_conn"))
 	db.SetMaxIdleConns(viper.GetInt("mysql.max_idle_conn"))
+	db.Charset("utf8mb4")
+	db.StoreEngine("innodb")
+	err = db.Sync2(sql.ModelList...)
+	if err != nil {
+		zap.L().Error("Sync mysql failed", zap.Error(err))
+		return err
+	}
 	return
 }
 

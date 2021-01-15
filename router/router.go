@@ -18,6 +18,12 @@ func Init() *gin.Engine {
 	r := gin.New()
 	// 设置路由的两个默认中间件
 	r.Use(logger.GinLogger(), logger.GinRecovery(true))
+	v1:=r.Group("/api/v1")
+
+	// 注册账号
+	v1.POST("/signup",controllers.SignUpHandler)
+	// 登陆
+	v1.POST("/login",controllers.LoginHandler)
 
 	r.NoRoute(func(c *gin.Context) {
 		c.JSON(http.StatusOK, gin.H{
