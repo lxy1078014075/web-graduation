@@ -5,4 +5,9 @@ var ModelList = []interface{}{
 	&TbClass{},
 	&TbActive{},
 	&TbPosition{},
+	&TbScore{},
+	&TbZonece{},
+	&TbCourseCompetition{},
+	&TbArt{},
+	&TbGroupActive{},
 }
