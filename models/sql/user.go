@@ -7,10 +7,10 @@ type TbUser struct {
 	UserName    string `xorm:"varchar(64) notnull"`
 	Password    string `xorm:"notnull"`
 	Email       string
-	Gender      int    `xorm:"notnull default 0 "`
+	Gender      int    `xorm:"notnull default(1) "`
 	StudentCard string `xorm:"char(10) unique(idx_student_card)"`
-	ClassId     int    `xorm:"index(idx_class_id)"`
+	ClassId     int64    `xorm:"index(idx_class_id)"`
 	Phone       string `xorm:"char(11)"`
-	Identity    int `xorm:"default 1"`
+	Identity    int `xorm:"default(1)"`
 	Base        `xorm:"extends"`
 }

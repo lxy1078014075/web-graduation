@@ -16,6 +16,10 @@ func SignUp(p *models.ParamSignUp) (err error) {
 	if err = mysql.CheckUserExist(p.StudentCard); err != nil {
 		return err
 	}
+	// 判断学号是否符合类型
+	if p.StudentCard != "" && !VerifyCardFormat(p.StudentCard) {
+		return ErrorInvalidFormatOfCard
+	}
 	// 生成ID
 	userId := snowflake.GetID()
 	user := &sql.TbUser{

@@ -21,20 +21,21 @@ func Init() *gin.Engine {
 	r.Use(logger.GinLogger(), logger.GinRecovery(true))
 	v1:=r.Group("/api/v1")
 
-	// 用户部分的接口
-	user:=v1.Group("/user")
-	{
-		// 注册账号
-		user.POST("/signup",controllers.SignUpHandler)
-		// 登陆获取 token
-		user.POST("/login",controllers.LoginHandler)
-		user.Use(middlewares.JWTAuthMiddleware())	//应用jwt中间件
-		{
-			// 修改用户信息
-			user.POST("/setup",controllers.SetUpHandler)
-		}
+	// 注册账号
+	v1.POST("/signup",controllers.SignUpHandler)
+	// 登陆获取 token
+	v1.POST("/login",controllers.LoginHandler)
 
+	v1.Use(middlewares.JWTAuthMiddleware())	//应用jwt中间件
+	{
+		// 修改用户信息
+		v1.POST("/setup",controllers.SetUpHandler)
+		// 获取活动列表
+		v1.GET("/active",controllers.ActiveHandler)
+		v1.GET("/active/:id",controllers.ActiveDetailHandler)
+		v1.POST("/add_active",controllers.AddActiveHandler)
 	}
+
 
 
 

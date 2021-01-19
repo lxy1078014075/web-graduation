@@ -2,7 +2,6 @@ package controllers
 
 import (
 	"errors"
-	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/go-playground/validator/v10"
 	"go.uber.org/zap"
@@ -90,18 +89,20 @@ func SetUpHandler(c *gin.Context) {
 		ResponseError(c, CodeNeedLogin)
 		return
 	}
-	fmt.Println(userId)
 	user := &sql.TbUser{
 		UserId:      userId,
 		Password:    s.Password,
 		Phone:       s.Phone,
 		StudentCard: s.StudentCard,
+		Identity:    s.Identity,
+		ClassId:     s.ClassId,
 	}
 	if err := logic.SetUp(user); err != nil {
+		zap.L().Error("logic.SetUp(user) failed", zap.Error(err))
 		if errors.Is(err, mysql.ErrorUserNotExist) {
 			ResponseError(c, CodeNeedLogin)
-		} else if errors.Is(err,logic.ErrorInvalidFormatOfPhone) || errors.Is(err,logic.ErrorInvalidFormatOfCard) {
-			ResponseErrorWithMsg(c,CodeInvalidParam,err.Error())
+		} else if errors.Is(err, logic.ErrorInvalidFormatOfPhone) || errors.Is(err, logic.ErrorInvalidFormatOfCard) {
+			ResponseErrorWithMsg(c, CodeInvalidParam, err.Error())
 		}
 	} else {
 		ResponseSuccess(c, nil)

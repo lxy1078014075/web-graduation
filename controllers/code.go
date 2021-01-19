@@ -15,6 +15,8 @@ const (
 	CodeInvalidToken
 
 	CodeRedisNotExist
+
+	CodeNeedClass
 )
 
 var codeMsgMap = map[Code]string{
@@ -30,6 +32,7 @@ var codeMsgMap = map[Code]string{
 	CodeInvalidToken:  "无效的token",
 
 	CodeRedisNotExist: "Redis不存在",
+	CodeNeedClass: "需要管理员分配班级才可查看",
 }
 
 func (c Code) Msg() string {
