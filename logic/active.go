@@ -15,6 +15,9 @@ func Active(userId int64) (actives []*models.ResActiveList, err error) {
 	if err != nil {
 		return nil, err
 	}
+	if classId==0{
+		return nil, ErrorNotInClass
+	}
 	// 获取活动列表
 	actives, err = mysql.GetActiveList(classId)
 	if err != nil {
@@ -37,6 +40,9 @@ func AddActive(param *models.ParamAddActive, userId int64) error {
 	classId, err := mysql.GetClassById(userId)
 	if err != nil {
 		return err
+	}
+	if classId==0{
+		return ErrorNotInClass
 	}
 	active := new(sql.TbActive)
 	active.ActiveId = snowflake.GetID()

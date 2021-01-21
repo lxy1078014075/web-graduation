@@ -10,6 +10,7 @@ const (
 	CodeInvalidPassword
 	CodeServerBusy
 	CodeNotEnoughPermission
+	CodeParamIsNil
 
 	CodeNeedLogin
 	CodeInvalidHeader
@@ -17,24 +18,31 @@ const (
 
 	CodeRedisNotExist
 
-	CodeNeedClass
+	CodeNotInClass
+	CodeInClass
+	CodeNotSameClass
+
+	CodeNotExpect	// 不应该出现的错误
 )
 
 var codeMsgMap = map[Code]string{
 	CodeSuccess:             "success",
 	CodeInvalidParam:        "请求参数错误",
-	CodeUserExist:           "用户名已存在",
-	CodeUserNotExist:        "用户名不存在",
+	CodeUserExist:           "用户已存在",
+	CodeUserNotExist:        "用户不存在",
 	CodeInvalidPassword:     "账号或密码错误",
 	CodeServerBusy:          "服务繁忙",
 	CodeNotEnoughPermission: "用户权限不够",
+	CodeParamIsNil:          "参数都为空",
 
 	CodeNeedLogin:     "请登录",
 	CodeInvalidHeader: "无效的请求头",
 	CodeInvalidToken:  "无效的token",
 
 	CodeRedisNotExist: "Redis不存在",
-	CodeNeedClass:     "需要管理员分配班级才可查看",
+	CodeNotInClass:    "没有分配班级，无法进行该操作",
+	CodeInClass:       "当前用户已经拥有班级，无法进行添加",
+	CodeNotSameClass: "当前用户不在同一班级",
 }
 
 func (c Code) Msg() string {

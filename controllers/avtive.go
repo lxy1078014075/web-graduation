@@ -6,7 +6,6 @@ import (
 	"github.com/go-playground/validator/v10"
 	"go.uber.org/zap"
 	"strconv"
-	"web-graduation/dao/mysql"
 	"web-graduation/logic"
 	"web-graduation/models"
 )
@@ -20,8 +19,8 @@ func ActiveHandler(c *gin.Context) {
 	}
 	if actives, err := logic.Active(userId); err != nil {
 		zap.L().Error("logic.Active(userId) failed", zap.Error(err))
-		if errors.Is(err, mysql.ErrorNeedClass) {
-			ResponseError(c, CodeNeedClass)
+		if errors.Is(err, logic.ErrorNotInClass) {
+			ResponseError(c, CodeNotInClass)
 			return
 		}
 		ResponseError(c, CodeServerBusy)
@@ -67,7 +66,7 @@ func AddActiveHandler(c *gin.Context) {
 	// 逻辑处理
 	if err := logic.AddActive(active, userId); err != nil {
 		zap.L().Error("logic.AddActive(active, userId) failed", zap.Error(err))
-		if errors.Is(err, logic.ErrorNeedOptions) || errors.Is(err, mysql.ErrorNeedClass) {
+		if errors.Is(err, logic.ErrorNeedOptions) || errors.Is(err, logic.ErrorNotInClass) {
 			ResponseErrorWithMsg(c, CodeInvalidParam, err.Error())
 			return
 		}

@@ -34,6 +34,17 @@ func Init() *gin.Engine {
 		v1.POST("/setup",controllers.SetUpHandler)
 		// 获取班级的所有成员
 		v1.GET("/all_person",controllers.GetAllPersonHandler)
+		// 通过学号获取用户名称
+		v1.GET("/get_username/:card",controllers.GetUserNameHandler)
+		// 搜索用户
+		v1.POST("/search_person",controllers.SearchPersonHandler)
+		// 添加班级成员
+		v1.POST("/add_person",controllers.AddPersonHandler)
+		// 删除班级成员
+		v1.POST("/remove_person",controllers.RemovePersonHandler)
+		// 修改用户权限
+		v1.POST("/update_position",controllers.UpdatePositionHandler)
+
 		// 获取活动列表
 		v1.GET("/active",controllers.ActiveHandler)
 		// 获取活动详情

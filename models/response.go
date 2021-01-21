@@ -25,12 +25,19 @@ type ResUserDetail struct {
 	ClassName   string `json:"class_name"`
 	Phone       string `json:"phone"`
 	Position    string `json:"position" xorm:"'name'"`
+	Age         int    `json:"age"`
 }
 
-// ResUsers 获取班级全部用户
-type ResUsers struct {
-	UserName string `json:"user_name"`
+// ResUser 获取班级用户的信息
+type ResUser struct {
+	UserName    string `json:"user_name"`
 	StudentCard string `json:"student_card"`
-	Position string `json:"position" xorm:"'name'"`
-	Phone string `json:"phone"`
+	Position    string `json:"position" xorm:"'name'"`
+	Phone       string `json:"phone"`
+}
+
+// ResUerIdName 获取用户Id 和 用户名
+type ResUerIdName struct {
+	UserId int64
+	UserName string
 }

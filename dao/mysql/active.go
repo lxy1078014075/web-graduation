@@ -13,9 +13,6 @@ func GetClassById(userId int64) (id int64, err error) {
 	if err != nil {
 		return 0, err
 	}
-	if user.ClassId==0 {
-		return 0, ErrorNeedClass
-	}
 	return user.ClassId, nil
 }
 
@@ -33,6 +30,8 @@ func GetUserNameById(userId int64) (creator string, err error) {
 	_, err = db.Cols("user_name").Where("user_id=?", userId).Get(user)
 	return user.UserName, err
 }
+
+
 
 // InsertActive 添加活动
 func InsertActive(active *sql.TbActive) error {
