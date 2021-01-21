@@ -84,7 +84,7 @@ func SetUpHandler(c *gin.Context) {
 		return
 	}
 	// 业务逻辑
-	userId, err := getCurrentUser(c)
+	userId, _, err := getCurrentUser(c)
 	if err != nil {
 		ResponseError(c, CodeNeedLogin)
 		return
@@ -94,8 +94,12 @@ func SetUpHandler(c *gin.Context) {
 		Password:    s.Password,
 		Phone:       s.Phone,
 		StudentCard: s.StudentCard,
-		Identity:    s.Identity,
+		PositionId:  s.PositionId,
 		ClassId:     s.ClassId,
+		Gender:      s.Gender,
+		Residence:   s.Residence,
+		Age:         s.Age,
+		Email:       s.Email,
 	}
 	if err := logic.SetUp(user); err != nil {
 		zap.L().Error("logic.SetUp(user) failed", zap.Error(err))
@@ -107,4 +111,41 @@ func SetUpHandler(c *gin.Context) {
 	} else {
 		ResponseSuccess(c, nil)
 	}
+}
+
+// UserDetailHandler 获取用户个人信息
+func UserDetailHandler(c *gin.Context) {
+	// 获取用户Id
+	userId, _, err := getCurrentUser(c)
+	if err != nil {
+		ResponseError(c, CodeNeedLogin)
+		return
+	}
+	// 业务逻辑
+	data, err := logic.GetUserDetail(userId)
+	if err != nil {
+		ResponseError(c, CodeServerBusy)
+		return
+	}
+	ResponseSuccess(c, data)
+}
+
+// GetAllPersonHandler 获取班级所有成员
+func GetAllPersonHandler(c *gin.Context) {
+	// 获取用户的权限
+	userid,positionId,err:=getCurrentUser(c)
+	if err!=nil{
+		ResponseError(c,CodeNeedLogin)
+		return
+	}
+	if positionId==1{
+		ResponseError(c,CodeNotEnoughPermission)
+		return
+	}
+	data,err:=logic.GetAllPerson(userid)
+	if err!=nil{
+		ResponseError(c,CodeServerBusy)
+		return
+	}
+	ResponseSuccess(c,data)
 }

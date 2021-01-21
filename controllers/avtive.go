@@ -13,7 +13,7 @@ import (
 
 // ActiveHandler 获取活动列表
 func ActiveHandler(c *gin.Context) {
-	userId, err := getCurrentUser(c)
+	userId, _, err := getCurrentUser(c)
 	if err != nil {
 		ResponseError(c, CodeNeedLogin)
 		return
@@ -31,19 +31,19 @@ func ActiveHandler(c *gin.Context) {
 }
 
 // ActiveDetailHandler 获取活动详情
-func ActiveDetailHandler(c *gin.Context)  {
-	idStr:=c.Param("id")
-	id,err:=strconv.ParseInt(idStr,10,64)
-	if err!=nil{
-		ResponseError(c,CodeInvalidParam)
+func ActiveDetailHandler(c *gin.Context) {
+	idStr := c.Param("id")
+	id, err := strconv.ParseInt(idStr, 10, 64)
+	if err != nil {
+		ResponseError(c, CodeInvalidParam)
 		return
 	}
-	data,err:=logic.GetActiveDetail(id)
-	if err!=nil{
-		zap.L().Error("logic.GetActiveDetail(id) failed",zap.Error(err))
+	data, err := logic.GetActiveDetail(id)
+	if err != nil {
+		zap.L().Error("logic.GetActiveDetail(id) failed", zap.Error(err))
 		return
 	}
-	ResponseSuccess(c,data)
+	ResponseSuccess(c, data)
 }
 
 // AddActiveHandler 新建活动
@@ -59,7 +59,7 @@ func AddActiveHandler(c *gin.Context) {
 		return
 	}
 	// 获取用户ID
-	userId, err := getCurrentUser(c)
+	userId, _, err := getCurrentUser(c)
 	if err != nil {
 		ResponseError(c, CodeNeedLogin)
 		return
@@ -67,7 +67,7 @@ func AddActiveHandler(c *gin.Context) {
 	// 逻辑处理
 	if err := logic.AddActive(active, userId); err != nil {
 		zap.L().Error("logic.AddActive(active, userId) failed", zap.Error(err))
-		if errors.Is(err, logic.ErrorNeedOptions) || errors.Is(err,mysql.ErrorNeedClass) {
+		if errors.Is(err, logic.ErrorNeedOptions) || errors.Is(err, mysql.ErrorNeedClass) {
 			ResponseErrorWithMsg(c, CodeInvalidParam, err.Error())
 			return
 		}

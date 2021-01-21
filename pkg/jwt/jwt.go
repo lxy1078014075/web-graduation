@@ -19,15 +19,15 @@ var MySecret = []byte("Liang XinYuan")
 // 如果想要保存更多信息，都可以添加到这个结构体中
 type MyClaims struct {
 	UserID   int64  `json:"user_id"`
-	Identity int `json:"identity"`
+	PositionId int64 `json:"identity"`
 	jwt.StandardClaims
 }
 
 // GetToken 生成JWT
-func GetToken(userID int64, identity int) (string, error) {
+func GetToken(userID int64, positionId int64) (string, error) {
 	c := MyClaims{
 		userID,
-		identity,
+		positionId,
 		jwt.StandardClaims{
 			ExpiresAt: time.Now().Add(TokenExpireDuration).Unix(),
 			Issuer:    "LXY-subject",

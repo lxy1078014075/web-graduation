@@ -10,7 +10,7 @@ type ParamSignUp struct {
 
 // ParamLogin 登陆接口的参数
 type ParamLogin struct {
-	Username string `json:"username" binding:"required"`
+	StudentCard string `json:"student_card" binding:"required"`
 	Password string `json:"password" binding:"required"`
 }
 
@@ -19,8 +19,12 @@ type ParamSetUp struct {
 	StudentCard string `json:"student_card"`
 	Phone       string `json:"phone"`
 	Password    string `json:"password"`
-	Identity    int    `json:"identity"`
+	Gender string `json:"gender"`
+	Residence string `json:"residence"`
+	Email string `json:"email"`
+	PositionId    int64 `json:"position_id"`
 	ClassId     int64  `json:"class_id"`
+	Age int `json:"age"`
 }
 
 // ParamAddActive 新建活动接口的参数

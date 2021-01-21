@@ -6,11 +6,11 @@ import (
 )
 
 const CtxUserIDKey = "userID"
-const CtxUserIdentity ="identity"
+const CtxUserPositionIdKey = "positionId"
 
 var ErrorUserNotLogin = errors.New("用户未登陆")
 
-func getCurrentUser(c *gin.Context) (userId int64, err error) {
+func getCurrentUser(c *gin.Context) (userId int64, positionId int64, err error) {
 	uid, ok := c.Get(CtxUserIDKey)
 	if !ok {
 		err = ErrorUserNotLogin
@@ -21,5 +21,6 @@ func getCurrentUser(c *gin.Context) (userId int64, err error) {
 		err = ErrorUserNotLogin
 		return
 	}
+	positionId = c.GetInt64(CtxUserPositionIdKey)
 	return
 }

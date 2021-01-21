@@ -9,6 +9,7 @@ const (
 	CodeUserNotExist
 	CodeInvalidPassword
 	CodeServerBusy
+	CodeNotEnoughPermission
 
 	CodeNeedLogin
 	CodeInvalidHeader
@@ -20,19 +21,20 @@ const (
 )
 
 var codeMsgMap = map[Code]string{
-	CodeSuccess:         "success",
-	CodeInvalidParam:    "请求参数错误",
-	CodeUserExist:       "用户名已存在",
-	CodeUserNotExist:    "用户名不存在",
-	CodeInvalidPassword: "账号或密码错误",
-	CodeServerBusy:      "服务繁忙",
+	CodeSuccess:             "success",
+	CodeInvalidParam:        "请求参数错误",
+	CodeUserExist:           "用户名已存在",
+	CodeUserNotExist:        "用户名不存在",
+	CodeInvalidPassword:     "账号或密码错误",
+	CodeServerBusy:          "服务繁忙",
+	CodeNotEnoughPermission: "用户权限不够",
 
 	CodeNeedLogin:     "请登录",
 	CodeInvalidHeader: "无效的请求头",
 	CodeInvalidToken:  "无效的token",
 
 	CodeRedisNotExist: "Redis不存在",
-	CodeNeedClass: "需要管理员分配班级才可查看",
+	CodeNeedClass:     "需要管理员分配班级才可查看",
 }
 
 func (c Code) Msg() string {

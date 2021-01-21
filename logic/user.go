@@ -34,14 +34,14 @@ func SignUp(p *models.ParamSignUp) (err error) {
 // Login 用户登陆逻辑
 func Login(l *models.ParamLogin) (token string, err error) {
 	user := &sql.TbUser{
-		UserName: l.Username,
+		StudentCard: l.StudentCard,
 		Password: l.Password,
 	}
 	if err := mysql.LoginUser(user); err != nil {
 		return "", err
 	}
-	fmt.Println(user.UserId, user.Identity)
-	return jwt.GetToken(user.UserId, user.Identity)
+	fmt.Println(user.UserId, user.PositionId)
+	return jwt.GetToken(user.UserId, user.PositionId)
 }
 
 // SetUp 设置用户信息逻辑
@@ -55,6 +55,21 @@ func SetUp(u *sql.TbUser) (err error) {
 		return ErrorInvalidFormatOfCard
 	}
 	return mysql.SetUpUser(u)
+}
+
+// GetUserDetail 获取用户详情的逻辑
+func GetUserDetail(id int64) (data *models.ResUserDetail,err error) {
+	return mysql.GetUserDetail(id)
+}
+
+// 获取班级所有成员的逻辑
+func GetAllPerson(id int64) (data []*models.ResUsers,err error) {
+	// 获取班级id
+	classid,err:=mysql.GetClassById(id)
+	if err!=nil{
+		return nil,err
+	}
+	return mysql.GelAllPerson(classid)
 }
 
 // VerifyMobileFormat 正则表达式判断是否是手机号
