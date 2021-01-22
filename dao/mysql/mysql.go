@@ -34,6 +34,8 @@ func Init() (err error) {
 		zap.L().Error("Sync mysql failed", zap.Error(err))
 		return err
 	}
+	// 数据导出
+	//db.DumpAllToFile("./models/mysql.sql")
 	return
 }
 

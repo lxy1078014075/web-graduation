@@ -20,17 +20,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b6c1aca0-6c40-4204-a6de-2dfdf0ec133b" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/controllers/vote.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dao/mysql/vote.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/logic/vote.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dao/mysql/active.go" beforeDir="false" afterPath="$PROJECT_DIR$/dao/mysql/active.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dao/mysql/error_code.go" beforeDir="false" afterPath="$PROJECT_DIR$/dao/mysql/error_code.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/logic/error.go" beforeDir="false" afterPath="$PROJECT_DIR$/logic/error.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/params.go" beforeDir="false" afterPath="$PROJECT_DIR$/models/params.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/response.go" beforeDir="false" afterPath="$PROJECT_DIR$/models/response.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/sql/active.go" beforeDir="false" afterPath="$PROJECT_DIR$/models/sql/active.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/router/router.go" beforeDir="false" afterPath="$PROJECT_DIR$/router/router.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dao/mysql/mysql.go" beforeDir="false" afterPath="$PROJECT_DIR$/dao/mysql/mysql.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
