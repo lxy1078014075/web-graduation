@@ -134,6 +134,7 @@ func CheckPositionExist(classId int64, positionId int64) (has bool, err error) {
 	return has, err
 }
 
+// UpdatePosition 修改职位
 func UpdatePosition(p *models.ParamUpdatePosition) error {
 	user := new(sql.TbUser)
 	user.PositionId = p.PositionId

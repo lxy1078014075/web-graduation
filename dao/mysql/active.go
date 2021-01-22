@@ -19,7 +19,7 @@ func GetClassById(userId int64) (id int64, err error) {
 // GetActiveList 获取活动列表
 func GetActiveList(classId int64) (actives []*models.ResActiveList, err error) {
 	actives = make([]*models.ResActiveList, 0)
-	err = db.Table("tb_active").Cols("active_id", "active_name", "creator").Where("class_id=?", classId).Find(&actives)
+	err = db.Table("tb_active").Where("class_id=?", classId).Find(&actives)
 	fmt.Println(actives)
 	return actives, err
 }
@@ -31,16 +31,45 @@ func GetUserNameById(userId int64) (creator string, err error) {
 	return user.UserName, err
 }
 
+// InsertActive 添加活动 使用事务进行添加，要为两张表同时添加
+func InsertActive(active *sql.TbActive, studentCards []string) (err error) {
+	session := db.NewSession()
+	defer func() {
+		if err != nil {
+			session.Rollback()
+		} else {
+			err = session.Commit()
+		}
+		session.Close()
+	}()
+	err = session.Begin()
 
-
-// InsertActive 添加活动
-func InsertActive(active *sql.TbActive) error {
-	_, err := db.Insert(active)
+	_, err = session.Insert(active)
+	if err != nil {
+		return err
+	}
+	for _, studentCard := range studentCards {
+		vote := new(sql.TbVote)
+		vote.StudentCard = studentCard
+		vote.ActiveId = active.ActiveId
+		_, err = session.Omit("state","result").Insert(vote)
+		if err != nil {
+			return err
+		}
+	}
 	return err
 }
 
-func GetActiveDetail(id int64) (data *models.ResActiveDetail,err error) {
-	data=new(models.ResActiveDetail)
-	_,err=db.Table("tb_active").Cols("active_name","content","finish_time").Get(data)
-	return data,err
+// GetStudentCardsByClassId 通过班级获取所有的学号(教师除外)
+func GetStudentCardsByClassId(classId int64) (studentCards []string, err error) {
+	studentCards = make([]string, 0)
+	err = db.Table("tb_user").Cols("student_card").Where("class_id=? and position_id!=?", classId, 2).Find(&studentCards)
+	return
+}
+
+// GetActiveDetail 获取活动的详情
+func GetActiveDetail(id int64) (data *models.ResActiveDetail, err error) {
+	data = new(models.ResActiveDetail)
+	_, err = db.Table("tb_active").Cols("active_id", "active_name", "content", "begin_time", "finish_time").Where("active_id=?", id).Get(data)
+	return data, err
 }

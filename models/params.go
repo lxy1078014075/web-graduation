@@ -31,6 +31,7 @@ type ParamSetUp struct {
 type ParamAddActive struct {
 	Name       string   `json:"name" binding:"required"`
 	Content    string   `json:"content" binding:"required"`
+	BeginTime  int64    `json:"begin_time" binding:"required"`
 	FinishTime int64    `json:"finish_time" binding:"required"`
 	Category   int      `json:"category" binding:"required"`
 	Options    []string `json:"options"`

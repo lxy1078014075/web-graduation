@@ -4,16 +4,21 @@ import "time"
 
 // ResActiveList 活动列表的返还数据
 type ResActiveList struct {
-	ActiveId   int64  `json:"active_id"`
-	ActiveName string `json:"active_name"`
-	Creator    string `json:"creator"`
+	ActiveId   int64     `json:"active_id"`
+	ActiveName string    `json:"active_name"`
+	Creator    string    `json:"creator"`
+	BeginTime  int64     `json:"begin_time"`
+	CreateTime time.Time `json:"create_time"`
 }
 
 // ResActiveDetail 活动详情
 type ResActiveDetail struct {
-	ActiveName string    `json:"active_name"`
-	Content    string    `json:"content"`
-	FinishTime time.Time `json:"finish_time"`
+	ActiveId int64 `json:"active_id"`
+	ActiveName string `json:"active_name"`
+	Content    string `json:"content"`
+	BeginTime  int64  `json:"begin_time"`
+	FinishTime int64  `json:"finish_time"`
+	State      string `json:"state"`
 }
 
 // ResUserDetail 用户详情
@@ -38,6 +43,6 @@ type ResUser struct {
 
 // ResUerIdName 获取用户Id 和 用户名
 type ResUerIdName struct {
-	UserId int64
+	UserId   int64
 	UserName string
 }

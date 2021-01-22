@@ -10,4 +10,5 @@ var ModelList = []interface{}{
 	&TbCourseCompetition{},
 	&TbArt{},
 	&TbGroupActive{},
+	&TbVote{},
 }
