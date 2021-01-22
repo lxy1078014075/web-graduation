@@ -83,3 +83,24 @@ func AddActive(param *models.ParamAddActive, userId int64) error {
 	// 新建活动并为所有的班级成员分配活动
 	return mysql.InsertActive(active,studentCards)
 }
+
+// RemoveActive 删除活动
+func RemoveActive(activeId int64,userId int64,positionId int64) error {
+	if positionId!=2{
+		username,err:=mysql.GetUserNameById(userId)
+		if err!=nil{
+			return err
+		}
+		creator,err:=mysql.GetCreatorByActiveId(activeId)
+		if err!=nil{
+			return err
+		}
+		if creator==""{
+			return ErrorActiveNotExist
+		}
+		if username!=creator{
+			return ErrorNotSameCreator
+		}
+	}
+	return mysql.RemoveActive(activeId)
+}

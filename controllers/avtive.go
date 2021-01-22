@@ -75,3 +75,29 @@ func AddActiveHandler(c *gin.Context) {
 		ResponseSuccess(c, nil)
 	}
 }
+
+// ModifyActiveHandler 修改活动
+func ModifyActiveHandler(c *gin.Context)  {
+
+}
+
+// RemoveActiveHandler 删除活动
+func RemoveActiveHandler(c *gin.Context)  {
+	idStr:=c.Param("id")
+	activeId,err:=strconv.ParseInt(idStr,10,64)
+	if err!=nil{
+		ResponseError(c,CodeInvalidParam)
+		return
+	}
+	userId,positionId,err:=getCurrentUser(c)
+	if err!=nil{
+		ResponseError(c,CodeNeedLogin)
+		return
+	}
+	err=logic.RemoveActive(activeId,userId,positionId)
+	if err!=nil{
+		zap.L().Error("logic.RemoveActive(activeId,userId) failed",zap.Error(err))
+		// 错误类型处理
+	}
+	ResponseSuccess(c,nil)
+}

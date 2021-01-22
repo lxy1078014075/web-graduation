@@ -52,7 +52,7 @@ func InsertActive(active *sql.TbActive, studentCards []string) (err error) {
 		vote := new(sql.TbVote)
 		vote.StudentCard = studentCard
 		vote.ActiveId = active.ActiveId
-		_, err = session.Omit("state","result").Insert(vote)
+		_, err = session.Omit("state", "result").Insert(vote)
 		if err != nil {
 			return err
 		}
@@ -72,4 +72,33 @@ func GetActiveDetail(id int64) (data *models.ResActiveDetail, err error) {
 	data = new(models.ResActiveDetail)
 	_, err = db.Table("tb_active").Cols("active_id", "active_name", "content", "begin_time", "finish_time").Where("active_id=?", id).Get(data)
 	return data, err
+}
+
+// GetCreatorByActiveId 通过 active_id 获取活动创建者
+func GetCreatorByActiveId(id int64) (creator string, err error) {
+	_, err = db.Table("tb_active").Cols("creator").Where("active_id=?", id).Get(&creator)
+	return
+}
+
+// RemoveActive 删除活动 使用事务
+func RemoveActive(activeId int64) (err error) {
+	session := db.NewSession()
+	defer func() {
+		if err != nil {
+			session.Rollback()
+		} else {
+			err = session.Commit()
+		}
+		session.Close()
+	}()
+	err = session.Begin()
+	_, err = session.Where("active_id=?", activeId).Delete(&sql.TbActive{})
+	if err != nil {
+		return err
+	}
+	_, err = session.Where("active_id=?", activeId).Delete(&sql.TbVote{})
+	if err != nil {
+		return err
+	}
+	return
 }

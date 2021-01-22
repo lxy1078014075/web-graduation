@@ -27,16 +27,6 @@ type ParamSetUp struct {
 	Age         int    `json:"age"`
 }
 
-// ParamAddActive 新建活动接口的参数
-type ParamAddActive struct {
-	Name       string   `json:"name" binding:"required"`
-	Content    string   `json:"content" binding:"required"`
-	BeginTime  int64    `json:"begin_time" binding:"required"`
-	FinishTime int64    `json:"finish_time" binding:"required"`
-	Category   int      `json:"category" binding:"required"`
-	Options    []string `json:"options"`
-}
-
 // ParamSearchUser 搜索用户接口的参数
 type ParamSearchUser struct {
 	UserId      int64  `json:"user_id" binding:"required"`
@@ -48,4 +38,19 @@ type ParamUpdatePosition struct {
 	UserId      int64  `json:"user_id" binding:"required"`
 	StudentCard string `json:"student_card" binding:"required"`
 	PositionId  int64  `json:"position_id" binding:"required"`
+}
+
+// ParamAddActive 新建活动接口的参数
+type ParamAddActive struct {
+	Name       string   `json:"name" binding:"required"`
+	Content    string   `json:"content" binding:"required"`
+	BeginTime  int64    `json:"begin_time" binding:"required"`
+	FinishTime int64    `json:"finish_time" binding:"required"`
+	Category   int      `json:"category" binding:"required"`
+	Options    []string `json:"options"`
+}
+
+// ParamModifyActive 修改活动的接口参数
+type ParamModifyActive struct {
+
 }

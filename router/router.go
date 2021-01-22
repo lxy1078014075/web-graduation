@@ -51,6 +51,10 @@ func Init() *gin.Engine {
 		v1.GET("/active/:id",controllers.ActiveDetailHandler)
 		// 新增活动
 		v1.POST("/add_active",controllers.AddActiveHandler)
+		// 修改活动	(未完成)
+		v1.POST("/modify_active",controllers.ModifyActiveHandler)
+		// 删除活动
+		v1.GET("remove_active/:id",controllers.RemoveActiveHandler)
 	}
 
 
