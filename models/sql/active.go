@@ -11,6 +11,6 @@ type TbActive struct {
 	BeginTime  int64    `json:"begin_time" xorm:"notnull"`
 	FinishTime int64    `json:"finish_time" xorm:"notnull"`
 	Category   int      `json:"category" xorm:"notnull"`
-	Options    []string `json:"options" xorm:"varchar(256)"`
+	Options    []string `json:"options" xorm:"text"`
 	Base       `xorm:"extends"`
 }

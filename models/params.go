@@ -52,5 +52,10 @@ type ParamAddActive struct {
 
 // ParamModifyActive 修改活动的接口参数
 type ParamModifyActive struct {
+}
 
+// ParamVote 用户投票需要
+type ParamVote struct {
+	ActiveId int64  `json:"active_id" binding:"required"`
+	Result   string `json:"result" binding:"required"`
 }

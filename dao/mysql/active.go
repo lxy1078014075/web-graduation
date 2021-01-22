@@ -70,7 +70,7 @@ func GetStudentCardsByClassId(classId int64) (studentCards []string, err error) 
 // GetActiveDetail 获取活动的详情
 func GetActiveDetail(id int64) (data *models.ResActiveDetail, err error) {
 	data = new(models.ResActiveDetail)
-	_, err = db.Table("tb_active").Cols("active_id", "active_name", "content", "begin_time", "finish_time").Where("active_id=?", id).Get(data)
+	_, err = db.Table("tb_active").Cols("active_id", "active_name", "content", "begin_time", "finish_time", "options").Where("active_id=?", id).Get(data)
 	return data, err
 }
 

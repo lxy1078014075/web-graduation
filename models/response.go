@@ -18,6 +18,7 @@ type ResActiveDetail struct {
 	Content    string `json:"content"`
 	BeginTime  int64  `json:"begin_time"`
 	FinishTime int64  `json:"finish_time"`
+	Options []string `json:"options"`
 	State      string `json:"state"`
 }
 
@@ -45,4 +46,10 @@ type ResUser struct {
 type ResUerIdName struct {
 	UserId   int64
 	UserName string
+}
+
+// ResVoteDetail 获取 投票详情 和 投票结果 的返回值
+type ResVoteDetail struct {
+	Num int `json:"num"`
+	UserName []string `json:"user_name" xorm:"'user_name'"`
 }

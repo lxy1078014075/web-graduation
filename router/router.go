@@ -55,6 +55,13 @@ func Init() *gin.Engine {
 		v1.POST("/modify_active",controllers.ModifyActiveHandler)
 		// 删除活动
 		v1.GET("remove_active/:id",controllers.RemoveActiveHandler)
+
+		// 用户投票
+		v1.POST("/vote",controllers.VoteHandler)
+		// 获取当前投票情况(未投票的不进行统计)
+		v1.GET("/vote_detail/:id",controllers.VoteDetailHandler)
+		// 获取投票结果(未投票的统计到默认票)
+		v1.GET("/vote_result/:id",controllers.VoteResultHandler)
 	}
 
 

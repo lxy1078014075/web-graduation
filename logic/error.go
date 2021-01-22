@@ -12,4 +12,5 @@ var (
 	ErrorPositionExist        = errors.New("该职位已经存在")
 	ErrorActiveNotExist       = errors.New("该活动已不存在")
 	ErrorNotSameCreator       = errors.New("您不是活动创始人，无法进行此操作")
+	ErrorActiveHasProblem     = errors.New("该活动出现了不可预估的问题")
 )
